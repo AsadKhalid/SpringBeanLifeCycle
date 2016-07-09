@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-init-method="myInit" default-destroy-method="myDestroy" 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="Triangle" class="com.bean.life.cycle.Triangle">
+        <property name="points" >
+            <list>
+                <ref bean="secondPoint"/>
+                <ref bean="thirdPoint"/>
+            </list>
+        </property>    
+    </bean>
+    <bean id="Circle" class="com.bean.life.cycle.Circle">
+        <property name="center" ref="firstPoint"/>   
+    </bean>
+    <bean id="firstPoint" class="com.bean.life.cycle.Point">
+        <property name="xAxis" value="0"/>
+        <property name="yAxis" value="0"/>
+    </bean>
+    <bean id="secondPoint" class="com.bean.life.cycle.Point">
+        <property name="xAxis" value="${zeroPoint.pointX}"/>
+        <property name="yAxis" value="${zeroPoint.pointY}"/>
+    </bean>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="pointsproperties.properties"/> 
+    </bean>
+    <bean id="thirdPoint" class="com.bean.life.cycle.Point">
+        <property name="xAxis" value="30"/>
+        <property name="yAxis" value="30"/>
+    </bean>
+    <bean class="com.bean.life.cycle.MyBeanPostProcessor"/>
+    <bean class="com.bean.life.cycle.MyBeanFactoryPostProcessor"/>
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+</beans>
